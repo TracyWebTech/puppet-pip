@@ -1,0 +1,6 @@
+puppet-pip
+----------
+
+```
+include pip
+```

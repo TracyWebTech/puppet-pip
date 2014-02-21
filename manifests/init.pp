@@ -1,0 +1,14 @@
+
+class pip {
+  if ! defined(Package['curl']) {
+    package { 'curl': }
+  }
+
+  $get_pip_url = 'https://raw.github.com/pypa/pip/1.5.4/contrib/get-pip.py'
+
+  exec { 'install-pip':
+    command => "curl $get_pip_url | python",
+    path    => ['/usr/bin', '/usr/local/bin'],
+    unless  => 'which pip',
+  }
+}
