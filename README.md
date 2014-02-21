@@ -1,5 +1,5 @@
 puppet-pip
-----------
+==========
 
 ```
 include pip
