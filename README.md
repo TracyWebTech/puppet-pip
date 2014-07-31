@@ -3,7 +3,7 @@ puppet-pip
 
 # Installing latest pip version:
 
-```
+```puppet
 include pip
 ```
 
