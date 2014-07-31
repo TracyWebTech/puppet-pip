@@ -1,13 +1,13 @@
-puppet-pip
-==========
+# puppet-pip
 
-# Installing latest pip version:
+
+## Installing latest pip version:
 
 ```puppet
 include pip
 ```
 
-# Installing a package using pip:
+## Installing a package using pip:
 
 ```puppet
 
