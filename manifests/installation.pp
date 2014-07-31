@@ -1,5 +1,5 @@
 
-define pip::install (
+define pip::installation (
   $python_version = $title,
 ) {
 
