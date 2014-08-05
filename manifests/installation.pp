@@ -3,8 +3,6 @@ define pip::installation (
   $python_version = $title,
 ) {
 
-  ensure_packages(['curl'], { allow_virtual => true })
-
   $get_pip_url = 'https://raw.githubusercontent.com/pypa/pip/1.5.6/contrib/get-pip.py'
 
   Exec {
