@@ -11,20 +11,27 @@ define pip::install(
   }
 
   case $ensure {
-    present: {
+    present, installed: {
       if $version != undef {
         $package_with_version = "$package==$version"
+        $grep_for = "^$package_with_version$"
       } else {
         $package_with_version = $package
+        $grep_for = "^$package=="
       }
 
       exec { "install-$package":
         command => "pip$python_version install $package_with_version",
-        unless  => "pip$python_version freeze | grep '^$package_with_version$'",
+        unless  => "pip$python_version freeze | grep '$grep_for'",
       }
     }
 
-    absent: {
+    latest: {
+      # TODO Read from https://pypi.python.org/pypi/<package_name>/json
+      # Probably best if implemented in Ruby
+    }
+
+    absent, purged: {
       exec { "uninstall-$package":
         command => "pip$python_version uninstall $package -y",
         onlyif  => "pip$python_version freeze | cut -d= -f1 | egrep '^$package$'",
