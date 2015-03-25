@@ -4,6 +4,7 @@ define pip::install(
   $version = undef,
   $python_version = '2.7',
   $ensure = present,
+  $index_url = undef
 ) {
 
   Exec {
@@ -12,6 +13,10 @@ define pip::install(
 
   case $ensure {
     present, installed: {
+      $index_url_arg = $index_url ? {
+        undef    => '',
+        defaults => "--index_url=$index_url"
+      }
       if $version != undef {
         $package_with_version = "$package==$version"
         $grep_for = "^$package_with_version$"
@@ -21,7 +26,7 @@ define pip::install(
       }
 
       exec { "install-$package":
-        command => "pip$python_version install $package_with_version",
+        command => "pip$python_version install $index_url_arg $package_with_version",
         unless  => "pip$python_version freeze | grep '$grep_for'",
       }
     }
