@@ -1,5 +1,5 @@
 name 'tracywebtech-pip'
-version '1.3.2'
+version '1.3.3'
 source 'https://github.com/TracyWebTech/puppet-pip'
 author 'Tracy Web Technologies'
 summary 'Install pip using get-pip.py script'

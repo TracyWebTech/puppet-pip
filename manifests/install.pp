@@ -4,7 +4,7 @@ define pip::install(
   $version = undef,
   $python_version = '2.7',
   $ensure = present,
-  $index_url = undef
+  $index_url = undef,
 ) {
 
   Exec {
@@ -15,8 +15,9 @@ define pip::install(
     present, installed: {
       $index_url_arg = $index_url ? {
         undef    => '',
-        defaults => "--index_url=$index_url"
+        defaults => "--index_url=$index_url",
       }
+
       if $version != undef {
         $package_with_version = "$package==$version"
         $grep_for = "^$package_with_version$"
