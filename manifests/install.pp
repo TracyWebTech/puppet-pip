@@ -15,20 +15,20 @@ define pip::install(
     present, installed: {
       $index_url_arg = $index_url ? {
         undef    => '',
-        defaults => "--index_url=$index_url",
+        defaults => "--index_url=${index_url}",
       }
 
       if $version != undef {
-        $package_with_version = "$package==$version"
-        $grep_for = "^$package_with_version$"
+        $package_with_version = "${package}==${version}"
+        $grep_for = "^${package_with_version}$"
       } else {
         $package_with_version = $package
-        $grep_for = "^$package=="
+        $grep_for = "^${package}=="
       }
 
-      exec { "install-$package":
-        command => "pip$python_version install $index_url_arg $package_with_version",
-        unless  => "pip$python_version freeze | grep '$grep_for'",
+      exec { "install-${package}":
+        command => "pip${python_version} install ${index_url_arg} ${package_with_version}",
+        unless  => "pip${python_version} freeze | grep '${grep_for}'",
       }
     }
 
@@ -38,9 +38,9 @@ define pip::install(
     }
 
     absent, purged: {
-      exec { "uninstall-$package":
-        command => "pip$python_version uninstall $package -y",
-        onlyif  => "pip$python_version freeze | cut -d= -f1 | egrep '^$package$'",
+      exec { "uninstall-${package}":
+        command => "pip${python_version} uninstall ${package} -y",
+        onlyif  => "pip${python_version} freeze | cut -d= -f1 | egrep '^${package}$'",
       }
     }
   }

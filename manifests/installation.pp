@@ -10,10 +10,10 @@ define pip::installation (
     require => Package['curl'],
   }
 
-  exec { "install-pip$python_version":
-    command => "curl -L $get_pip_url | python$python_version",
-    unless  => "which pip$python_version",
-    onlyif  => "which python$python_version",
+  exec { "install-pip${python_version}":
+    command => "curl -L ${get_pip_url} | python${python_version}",
+    unless  => "which pip${python_version}",
+    onlyif  => "which python${python_version}",
   }
 
 }
