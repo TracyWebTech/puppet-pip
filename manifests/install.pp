@@ -42,6 +42,7 @@ define pip::install(
       exec { "uninstall-${package}":
         command => "pip${python_version} uninstall ${package} -y",
         onlyif  => "pip${python_version} freeze | cut -d= -f1 | egrep '^${package}$'",
+        require => Exec["install-pip${python_version}"],
       }
     }
   }
