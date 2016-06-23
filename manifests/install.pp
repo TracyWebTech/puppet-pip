@@ -28,7 +28,7 @@ define pip::install(
 
       exec { "install-${package}":
         command => "pip${python_version} install ${index_url_arg} ${package_with_version}",
-        unless  => "pip${python_version} freeze | grep '${grep_for}'",
+        unless  => "pip${python_version} freeze --all | grep '${grep_for}'",
         require => Exec["install-pip${python_version}"],
       }
     }
@@ -41,7 +41,7 @@ define pip::install(
     absent, purged: {
       exec { "uninstall-${package}":
         command => "pip${python_version} uninstall ${package} -y",
-        onlyif  => "pip${python_version} freeze | cut -d= -f1 | egrep '^${package}$'",
+        onlyif  => "pip${python_version} freeze --all | cut -d= -f1 | egrep '^${package}$'",
       }
     }
   }
