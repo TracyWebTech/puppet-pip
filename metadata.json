@@ -1,6 +1,6 @@
 {
   "name": "tracywebtech-pip",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "author": "Tracy Web Technologies",
   "summary": "Install pip using get-pip.py script",
   "license": "Apache 2.0",
